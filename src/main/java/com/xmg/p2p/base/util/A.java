@@ -6,5 +6,6 @@ public class A {
           System.out.println("1234");
           System.out.println("4567");
           System.out.println("aaaaa");
+          System.out.println("bbbb");
 	}
 }
