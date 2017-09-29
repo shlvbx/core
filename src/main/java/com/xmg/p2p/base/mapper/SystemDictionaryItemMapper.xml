@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmg.p2p.base.mapper.SystemDictionaryItemMapper" >
+	<resultMap type="com.xmg.p2p.base.domain.SystemDictionaryItem" id="smallMap">
+		  <id column="id" property="id" jdbcType="BIGINT" />
+		  <result column="title" property="title" jdbcType="VARCHAR" />
+	</resultMap>
+	
+  <resultMap id="BaseResultMap" type="com.xmg.p2p.base.domain.SystemDictionaryItem" extends="smallMap" >
+    <result column="parentId" property="parentId" jdbcType="BIGINT" />
+    <result column="sequence" property="sequence" jdbcType="TINYINT" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.xmg.p2p.base.domain.SystemDictionaryItem" useGeneratedKeys="true" keyProperty="id" >
+    insert into systemdictionaryitem (parentId, title, sequence)
+    values 
+    (#{parentId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{sequence,jdbcType=TINYINT})
+    
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.xmg.p2p.base.domain.SystemDictionaryItem" >
+    update systemdictionaryitem
+    set parentId = #{parentId,jdbcType=BIGINT},
+      	title = #{title,jdbcType=VARCHAR},
+      	sequence = #{sequence,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <sql id="base_column">id, parentId, title, sequence</sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select <include refid="base_column"></include>
+    from systemdictionaryitem
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+ 	select <include refid="base_column"/>
+    from systemdictionaryitem
+  </select>
+  
+  <select id="queryForCount" resultType="int">
+  	select count(id)   from systemdictionaryitem
+  </select>
+  
+  <sql id="condition">
+  	<where>
+		<if test="parentId!=null">
+			and parentId=#{parentId}
+		</if>
+		<if test="keyword">
+			and (title like concat('%',#{keyword},'%'))
+		</if>
+  	</where>
+  </sql>
+  
+  <select id="queryItems" resultMap="BaseResultMap">
+  	select <include refid="base_column"/>
+  		 from systemdictionaryitem
+  		 <include refid="condition"/>
+  </select>
+  
+  <select id="selectAllBySn" resultMap="BaseResultMap">
+  	select sd.id id,sdi.title title from systemdictionary sd left join 
+  	systemdictionaryitem sdi
+  	on sd.id=sdi.parentId where sd.sn=#{sn}
+  </select>
+</mapper>
