@@ -28,6 +28,7 @@ public class Account extends BaseDomain{
 	
 	//总额
 	public BigDecimal getTotalAmount(){
+		
 		return this.usableAmount.add(this.freezedAmount).add(this.unReceivePrincipal);
 	}
 }

@@ -16,6 +16,7 @@ public class AcountServiceImpl implements IAcountService {
 	@Override
 	public void update(Account account) {
 		int result=this.accountMapper.updateByPrimaryKey(account);
+		System.out.println("hahah");
 		if(result==0) {
 			throw new RuntimeException("乐观锁失效,Account:"+account.getId());
 		}
