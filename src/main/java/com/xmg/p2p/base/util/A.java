@@ -14,7 +14,7 @@ public class A {
 	public static void dev(){
 		System.out.println("分支");
 		System.out.println("分支1");
-			System.out.println("dev分支代码");
+		System.out.println("dev分支代码");
 		System.out.println("dev分支代码");
 		System.out.println("分支2");
 		System.out.println("分支3");
