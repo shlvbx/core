@@ -11,4 +11,7 @@ public class A {
 		 System.out.println("DDDD");
 
 	}
+	public static void dev(){
+		System.out.println("分支");
+	}
 }
