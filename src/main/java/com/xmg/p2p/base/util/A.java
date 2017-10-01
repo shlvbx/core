@@ -13,5 +13,8 @@ public class A {
 	}
 	public static void dev(){
 		System.out.println("分支");
+		System.out.println("dev分支代码");
+		System.out.println("dev分支代码");
+		System.out.println("dev分支代码");
 	}
 }
